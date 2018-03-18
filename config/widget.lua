@@ -516,7 +516,7 @@ local function BGFunc()
   end
 
   if resetGlobalVarIndex >= 0 then
-    if model.getGlobalVariable(resetGlobalVarIndex) ~= 0 then
+    if model.getGlobalVariable(resetGlobalVarIndex, 0) ~= 0 then
       initFunc()
     end
   end

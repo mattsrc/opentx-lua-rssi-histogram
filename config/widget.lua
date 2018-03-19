@@ -403,13 +403,31 @@ local function LineWidget(options)
 end
 
 --
+-- Static Config
+--
+-- Optionally move these under CONFIG_START (or redefine them)
+-- if you want to change the values.
+
+-- Specifies how often you want data to be collected.
+-- Units are in ms.
+local BG_THROTTLE = {
+  freq_ms = 100,  -- collect every 100ms (ten times a second)
+  next_ms = 0
+}
+
+-- Specifies how often you want data to be displayed.  This should probably
+-- be >= BG_THROTTLE to avoid pointless refreshes of identical data.
+local RUN_THROTTLE = {
+  freq_ms = 100,  -- display every 100ms
+  next_ms = 0
+}
+
+--
 -- CONFIG START
 --
 
 -- A basic placeholder config
 
-local BG_THROTTLE = { freq_ms = 100, next_ms = 0 }
-local RUN_THROTTLE = { freq_ms = 100, next_ms = 0 }
 resetGlobalVarIndex = -1
 
 local genericSetup = {

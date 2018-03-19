@@ -1,5 +1,3 @@
-local BG_THROTTLE = { freq_ms = 100, next_ms = 0 }
-local RUN_THROTTLE = { freq_ms = 100, next_ms = 0 }
 resetGlobalVarIndex = 5
 
 -- QX7 display is 128x64 pixels.  This Setup uses the top for RSSI and a 3x2 grid underneath

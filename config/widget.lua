@@ -12,19 +12,15 @@
 -- You assume all liability for any damage caused by the result of using
 -- this script. Use this script at your own risk.
 
+-- Please see the file README.md for usage documentation on widgets.  The
+-- comments here focus on implementation details.
 
 -- == Widget Definitions ==
 --
--- Thi is your library of "widgets" that you can select from in your telemetry screen.
+-- This is your library of "widgets" that you can select from in your telemetry screen.
 -- Of course, you can also create your own.
 --
--- Using:
---
---   Refer to the Readme.md file for examples.
---
--- Creating:
---
---   Basic definition is
+-- Basic definition is
 --  
 --   widget = {
 --     init = function(self) end;
@@ -32,39 +28,16 @@
 --     draw = function(self, rx, ry, rw, rh) end;
 --   }
 --  
---   init: Called at start and if resetGlobalVarIndex GV is > 0
---   bg: Called priodically whether the telemetry screen is shown or not
---   draw: Called when the LCD is ready to be drawn to
---  
---   init, bg, and draw are all optional can can be omitted if they are
---   not needed.
+-- init: Called at start and if resetGlobalVarIndex GV is > 0
+-- bg: Called priodically whether the telemetry screen is shown or not
+-- draw: Called when the LCD is ready to be drawn to
+-- 
+-- init, bg, and draw are all optional can can be omitted if they are
+-- not needed.
 
-
+--
 -- RSSI graph widget
 --
--- Draws a reatime RSSI histogram.  Autoscales Y axis.  Uses log scale for
--- amounts so that rare readings still show up.
---
--- Usage Example:
--- 
---  widgets = {
---    {
---      column = 2;
---      row = 0;
---      width = 2;
---      height = 4;
---      widget = RSSIHistogramWidget({greyscale = true})
---    }
---  }
---
--- Options:
---
---  greyscale: If true, then the RSSI critical is drawn as a greyscale
---    rectangle.  This won't work on the QX7, which has a monochrome
---    display
---
---
--- Need a width of at least 100 as-coded or it wont draw anything.
 local function RSSIHistogramWidget(options)
   local widget = {
   init = function(self)
@@ -159,34 +132,9 @@ local function RSSIHistogramWidget(options)
   return widget
 end
 
-
+--
 -- LabelWidget
 --
--- Draws a label that can be directly provided, or optionally provided via a
--- callback function.
---
--- Usage Example:
---
--- 
---  widgets = {
---  {
---    column = 0;
---    row = 0;
---    width = 2;
---    widget = LabelWidget({
---      init_func = function()
---        return model.getInfo().name
---      end;
---      label_flags = BOLD;
---    })
---  },
---
--- Options:
---
---   label: Use a simple string label.  If init_func is set, this is ignored
---   init_func: Call the given function and display it's returned value
---   label_flags: Flags are forwarded to drawText and can make the text bold,
---    at different sizes, etc.  See opentx docs for details.
 local function LabelWidget(options)
   local label_flags = options.label_flags or 0
   local widget = {
@@ -206,35 +154,9 @@ local function LabelWidget(options)
 end
 
 
+--
 -- ValueWidget
 --
--- Draws a labeled value.  By default, calls getValue for the value.  See the
--- OpenTX docs for available getValue strings.
---
--- Usage Example:
---
---  {
---    column = 0;
---    row = 1;
---    widget = ValueWidget('RS', {func=getRSSI})
---  },
---  {
---    column = 1;
---    row = 1;
---    widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
---  },
---
--- Options:
---
---   label: The label to put in front of the value.  If omitted, uses parm for
---     the label.
---   label_flags: Label draw flags (e.g. BOLD).  See OpenTX docs for drawText
---     for more information
---   value_flags: Value draw flags (e.g. BOLD).  See OpenTX docs for drawText
---     for more information
---   func: If set, calls this function for the value instead of getValue()
---   decimals: If set, rounds the output value to the given number of decimals.
---     e.g.  5.2345 becomes 5.23 if decimals = 2
 local function ValueWidget(parm, options)
   local decimals = options.decimals or -1
   local label_flags = options.label_flags or 0
@@ -265,33 +187,9 @@ local function ValueWidget(parm, options)
 end
 
 
+--
 -- SwitchWidget
 --
--- Shows the value of a switch along with a custom label.  Can also
--- change style (e.g. bold, inverse, flashing) depending on state.
--- 
--- The idea is both to remind the pilot what switches are relevant and to show
--- if a switch is in a non-default state.
---
--- Example: Say you control rates via switch SC and want the default setting to
--- be high
---
---  {
---    column = 1;
---    row = 1;
---    widget = SwitchWidget('sc', {
---    labels = {'High', 'Low', 'Low'},
---    flags = {0, INVERS, INVERS}
---    })
---  },
---
--- The settings above will show High is SC if forward, and Low otherwise.
--- Also, the Low labels will be displayed in an inverse font
---
--- Options:
---
---   flags: Draw flags.  e.g. BOLD, INVERS
---   labels: Labels that correspond to each switch state
 local function SwitchWidget(switch, options)
   local switch_pos_map = {
   {'sa', 3},
@@ -341,22 +239,9 @@ local function SwitchWidget(switch, options)
 end
 
 
+--
 -- TimerWidget
 --
--- Shows the value of a timer.
---
--- Example:
---
---  {
---    column = 0;
---    row = 2;
---    widget = TimerWidget(0, {})
---  },
---
--- Options:
---
---   timer_flags: Display flags for timer.  e.g. BOLD, INVERS
---   label_flags: Display flags for "T0", "T1", or "T2" label
 local function TimerWidget(timer_number, options)
   local label_flags = options.label_flags or 0
   local timer_flags = options.timer_flags or 0
@@ -372,25 +257,9 @@ local function TimerWidget(timer_number, options)
 end
 
 
+--
 -- LineWidget
 --
--- Used to draw lines between other widgets for grouping.
---
--- Example:
---
---  {
---    column = 1;
---    row = 1;
---    height = 2;
---    width = 0;
---    pad = 0;
---    widget = LineWidget({})
---  },
---
--- Options:
---
--- pattern: Settings for drawLine pattern.  See openTX docs for details.
--- flags: Settings for drawLine flags.  See OpenTX docs for details.
 local function LineWidget(options)
   local pattern = options.pattern or SOLID
   local flags = options.flags or FORCE
@@ -455,7 +324,6 @@ end
 local Setup = nil
 
 -- == Support Code ==
-
 
 local function filterWidgets(widgets)
   local name = model.getInfo().name
@@ -585,7 +453,6 @@ local function runFunc(event)
     end
   end
 end
-
 
 
 -- Return handlers

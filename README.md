@@ -1,9 +1,10 @@
 # opentx-lua-rssi-histogram
+
 LUA telemetry script for OpenTX that provides an RSSI histogram.  It can be
 customized to show other status information as well.  Tested and used on a QX7
-and X9D with Open TX 2.2
+and X9D with Open TX 2.2 for hundreds of flights.
 
-## Getting Started
+## Quick Start
 
     * Copy the script SCRIPTS/TELEMETRY/widget.lua to SCRIPTS/TELEMETRY/ on
       your SD card
@@ -33,8 +34,6 @@ The second method involves extra steps but it will be easier to run with the
 latest version of the code.  You can also manage multiple configuration more
 easily with this method.  But it's up to you - starting simple might be the best
 way to start as you can easily change your mind later.
-
-### Format
 
 ### Layout
 
@@ -166,8 +165,171 @@ work:
 
 ## Widget Basics
 
+A widget is a Lua object that knows how to fetch some data and draw to the LCD.
+The basic way to create a widget is to call a function that creates and returns
+one.
+
+
+### Custom Widgets
+
+If you want to add features to Widgets or create your own, refer to the comments
+and documentation in *config/widget.lua*
+
 
 ## Widget Reference
+
+### Label Widget
+
+Draws a label that can be directly provided, or optionally provided via a
+callback function.
+
+#### Usage Example:
+
+    widgets = {
+    {
+      column = 0;
+      row = 0;
+      width = 2;
+      widget = LabelWidget({
+        init_func = function()
+          return model.getInfo().name
+        end;
+        label_flags = BOLD;
+      })
+    },
+
+#### Options:
+
+    * `label`: Use a simple string label.  If `init_func` is set, this is ignored
+    * `init_func`: Call the given function and display it's returned value
+    * `label_flags`: Flags are forwarded to drawText and can make the text bold,
+       at different sizes, etc.  See opentx docs for details.
+
+
+### Line Widget
+
+Used to draw lines between other widgets for grouping.
+
+#### Usage Example:
+
+    {
+      column = 1;
+      row = 1;
+      height = 2;
+      width = 0;
+      pad = 0;
+      widget = LineWidget({})
+    },
+
+#### Options:
+
+    * `pattern`: Settings for `drawLine()` pattern.  See openTX docs for details.
+    * `flags`: Settings for `drawLine()` flags.  See OpenTX docs for details.
+
+
+### RSSI Histogram Widget
+
+Draws a reatime RSSI histogram.  Autoscales Y axis.  Uses log scale for
+amounts so that rare readings still show up.
+
+Needs a pixel width of at least 100 as-coded or it wont draw anything.
+
+#### Usage Example:
+
+    widgets = {
+      {
+        column = 2;
+        row = 0;
+        width = 2;
+        height = 4;
+        widget = RSSIHistogramWidget({greyscale = true})
+      }
+    }
+
+#### Options:
+
+  * `greyscale`: If true, then the RSSI critical is drawn as a greyscale
+    rectangle.  This won't work on the QX7, which has a monochrome
+    display.
+
+
+### SwitchWidget
+
+Shows the value of a switch along with a custom label.  Can also change style
+(e.g. bold, inverse, flashing) depending on state.
+
+The idea is both to remind the pilot what switches are relevant and to show if a
+switch is in a non-default state.
+
+#### Usage Example:
+  
+Say you control rates via switch SC and want the default setting to be high
+
+    {
+      column = 1;
+      row = 1;
+      widget = SwitchWidget('sc', {
+      labels = {'High', 'Low', 'Low'},
+      flags = {0, INVERS, INVERS}
+      })
+    },
+
+The settings above will show High is SC if forward, and Low otherwise.
+Also, the Low labels will be displayed in an inverse font
+
+#### Options:
+
+    * `flags`: Draw flags.  e.g. BOLD, INVERS
+    * `labels`: Labels that correspond to each switch state
+
+
+### TimerWidget
+
+Shows the value of a timer. 
+
+#### Usage Example:
+
+ {
+   column = 0;
+   row = 2;
+   widget = TimerWidget(0, {})
+ },
+
+#### Options:
+
+    * `timer_flags`: Display flags for timer.  e.g. `BOLD`, `INVERS`
+    * `label_flags`: Display flags for `T0`, `T1`, or `T2` label
+
+
+### Value Widget
+
+Draws a labeled value.  By default, calls getValue for the value.  See the
+OpenTX docs for available getValue strings.
+
+#### Usage Example:
+
+    {
+      column = 0;
+      row = 1;
+      widget = ValueWidget('RS', {func=getRSSI})
+    },
+    {
+      column = 1;
+      row = 1;
+      widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+    },
+
+#### Options:
+
+    * `label`: The label to put in front of the value.  If omitted, uses parm for
+      the label.
+    * `label_flags`: Label draw flags (e.g. BOLD).  See OpenTX docs for drawText
+      for more information
+    * `value_flags`: Value draw flags (e.g. BOLD).  See OpenTX docs for drawText
+      for more information
+    * `func`: If set, calls this function for the value instead of getValue()
+    * `decimals`: If set, rounds the output value to the given number of decimals.
+      e.g.  5.2345 becomes 5.23 if decimals = 2
 
 
 ### Per Radio and Per Model Customization

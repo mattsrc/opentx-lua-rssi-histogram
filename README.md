@@ -6,15 +6,18 @@ and X9D with Open TX 2.2 for hundreds of flights.
 
 ## Quick Start
 
-    * Copy the script SCRIPTS/TELEMETRY/widget.lua to SCRIPTS/TELEMETRY/ on
-      your SD card
-    * Either in Companion, or your Radio choose a model to configure and go to
-      the "Telemetry Screens" page
-    * Select "widget.lua" for one of the pages
-    * If in Companion start the simulator.  If on a real radio, go to the main
-      screen
-    * Hold the "Page" button to see telemetry screens, then press the "Page"
-      button to switch between screens.
+The following instruction will work either on a real radio or simulated in
+Companion software:
+
+Copy the script `SCRIPTS/TELEMETRY/widget.lua` to `SCRIPTS/TELEMETRY/` on your
+SD card
+
+Choose a model to configure and go to the "Telemetry Screens" page
+
+Select "widget.lua" for one of the telemetry pages
+
+Hold the "Page" button to see telemetry screens, then press the "Page" button
+to switch between screens.
 
 ## Customization
 
@@ -23,12 +26,12 @@ telemetry values, times, switch states and more.
 
 There are two ways to do this:
 
-    * Edit SCRIPTS/TELEMETRY/widget.lua, search for "CONFIG START", and start
-      hacking in new values.
-    * Create (or copy) a new file in config/configs.  This file contains only
-      the configuration data and no code.  You can then combine the data and
-      code using the provided python script in config.  For example:
-      _python combine.py configs/myconfig.lua_
+* Edit SCRIPTS/TELEMETRY/widget.lua, search for "CONFIG START", and start
+  hacking in new values.
+* Create (or copy) a new file in config/configs.  This file contains only
+  the configuration data and no code.  You can then combine the data and
+  code using the provided python script in config.  For example:
+  _python combine.py configs/myconfig.lua_
 
 The second method involves extra steps but it will be easier to run with the
 latest version of the code.  You can also manage multiple configuration more
@@ -81,11 +84,11 @@ the spreadsheet example.
 Note that the "0" row and columns are assumed and not put into the definition.
 So by the aboive definition:
 
-    * Cell 0, 0 has a width of 52 pixels and a height of 20 pixels.  
-    * Cell 2, 2 has a width of (158 - 105) = 53 pixels and a height of
-      (52 - 41) = 11 pixels.
-    * Cell 3, 2 has a width of (211 - 158) = 53 pixels and a height of
-      (52 - 41) = 11 pixels.
+* Cell 0, 0 has a width of 52 pixels and a height of 20 pixels.  
+* Cell 2, 2 has a width of (158 - 105) = 53 pixels and a height of
+  (52 - 41) = 11 pixels.
+* Cell 3, 2 has a width of (211 - 158) = 53 pixels and a height of
+  (52 - 41) = 11 pixels.
       
 and so on.
 
@@ -178,6 +181,49 @@ and documentation in *config/widget.lua*
 
 ## Widget Reference
 
+### Current Date Widget
+
+Displays the current date as YYYY-MM-DD
+
+#### Usage Example:
+
+    widgets = {
+      {
+        column = 0;
+        row = 0;
+        width = 2;
+        widget = CurrentDateWidget({})
+      },
+    }
+
+#### Options:
+
+* `flags`: Flags are forwarded to drawText and can make the text bold,
+   at different sizes, etc.  See opentx docs for details.
+* `separator`: Change the separator from '-' to some other character.
+
+### Current Time Widget
+
+Displays the current time in 24-hour format.
+
+#### Usage Example:
+
+    widgets = {
+      {
+        column = 0;
+        row = 0;
+        width = 2;
+        widget = CurrentTimeWidget({})
+      },
+    }
+
+#### Options:
+
+* `flags`: Flags are forwarded to drawText and can make the text bold,
+   at different sizes, etc.  See opentx docs for details.
+* `flash`: If true, flashes the ':' characters once a second.
+* `show_seconds`: If true, includes seconds in the label.
+
 ### Label Widget
 
 Draws a label that can be directly provided, or optionally provided via a
@@ -186,24 +232,25 @@ callback function.
 #### Usage Example:
 
     widgets = {
-    {
-      column = 0;
-      row = 0;
-      width = 2;
-      widget = LabelWidget({
-        init_func = function()
-          return model.getInfo().name
-        end;
-        label_flags = BOLD;
-      })
-    },
+      {
+        column = 0;
+        row = 0;
+        width = 2;
+        widget = LabelWidget({
+          init_func = function()
+            return model.getInfo().name
+          end;
+          label_flags = BOLD;
+        })
+      },
+    }
 
 #### Options:
 
-    * `label`: Use a simple string label.  If `init_func` is set, this is ignored
-    * `init_func`: Call the given function and display it's returned value
-    * `label_flags`: Flags are forwarded to drawText and can make the text bold,
-       at different sizes, etc.  See opentx docs for details.
+* `label`: Use a simple string label.  If `init_func` is set, this is ignored
+* `init_func`: Call the given function and display it's returned value
+* `label_flags`: Flags are forwarded to drawText and can make the text bold,
+   at different sizes, etc.  See opentx docs for details.
 
 
 ### Line Widget
@@ -223,8 +270,8 @@ Used to draw lines between other widgets for grouping.
 
 #### Options:
 
-    * `pattern`: Settings for `drawLine()` pattern.  See openTX docs for details.
-    * `flags`: Settings for `drawLine()` flags.  See OpenTX docs for details.
+* `pattern`: Settings for `drawLine()` pattern.  See openTX docs for details.
+* `flags`: Settings for `drawLine()` flags.  See OpenTX docs for details.
 
 
 ### RSSI Histogram Widget
@@ -248,9 +295,9 @@ Needs a pixel width of at least 100 as-coded or it wont draw anything.
 
 #### Options:
 
-  * `greyscale`: If true, then the RSSI critical is drawn as a greyscale
-    rectangle.  This won't work on the QX7, which has a monochrome
-    display.
+* `greyscale`: If true, then the RSSI critical is drawn as a greyscale
+  rectangle.  This won't work on the QX7, which has a monochrome
+  display.
 
 
 ### SwitchWidget
@@ -279,8 +326,8 @@ Also, the Low labels will be displayed in an inverse font
 
 #### Options:
 
-    * `flags`: Draw flags.  e.g. BOLD, INVERS
-    * `labels`: Labels that correspond to each switch state
+* `flags`: Draw flags.  e.g. BOLD, INVERS
+* `labels`: Labels that correspond to each switch state
 
 
 ### TimerWidget
@@ -297,8 +344,8 @@ Shows the value of a timer.
 
 #### Options:
 
-    * `timer_flags`: Display flags for timer.  e.g. `BOLD`, `INVERS`
-    * `label_flags`: Display flags for `T0`, `T1`, or `T2` label
+* `timer_flags`: Display flags for timer.  e.g. `BOLD`, `INVERS`
+* `label_flags`: Display flags for `T0`, `T1`, or `T2` label
 
 
 ### Value Widget
@@ -321,15 +368,15 @@ OpenTX docs for available getValue strings.
 
 #### Options:
 
-    * `label`: The label to put in front of the value.  If omitted, uses parm for
-      the label.
-    * `label_flags`: Label draw flags (e.g. BOLD).  See OpenTX docs for drawText
-      for more information
-    * `value_flags`: Value draw flags (e.g. BOLD).  See OpenTX docs for drawText
-      for more information
-    * `func`: If set, calls this function for the value instead of getValue()
-    * `decimals`: If set, rounds the output value to the given number of decimals.
-      e.g.  5.2345 becomes 5.23 if decimals = 2
+* `label`: The label to put in front of the value.  If omitted, uses parm for
+  the label.
+* `label_flags`: Label draw flags (e.g. BOLD).  See OpenTX docs for drawText
+  for more information
+* `value_flags`: Value draw flags (e.g. BOLD).  See OpenTX docs for drawText
+  for more information
+* `func`: If set, calls this function for the value instead of getValue()
+* `decimals`: If set, rounds the output value to the given number of decimals.
+  e.g.  5.2345 becomes 5.23 if decimals = 2
 
 
 ### Per Radio and Per Model Customization
@@ -338,11 +385,11 @@ To support multiple radios and models, you have two options:
 
 #### Static Config
 
-  * Create a separate config for each model you have.  These are best
-    placed in _config/configs_
-  * Use _configs/combine.py_ to make a lua for each model.  Example usage is
-    _python combine.py configs/edg540.lua_
-  * In the telemetry page for each model, choose the corresponding lua file.
+* Create a separate config for each model you have.  These are best
+  placed in _config/configs_
+* Use _configs/combine.py_ to make a lua for each model.  Example usage is
+  _python combine.py configs/edg540.lua_
+* In the telemetry page for each model, choose the corresponding lua file.
 
 This approach has downsides if you have many models - especially since models
 tend to be similar.  Below you can learn to do it with one config.

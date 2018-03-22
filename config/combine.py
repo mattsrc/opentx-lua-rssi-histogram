@@ -6,7 +6,7 @@ import os
 import sys
 
 parser = argparse.ArgumentParser(
-    description='Combines widget.lua with a configuration in configs.  Writes '
+    description='Combines code.lua with a configuration in configs.  Writes '
                 'the output to SCRIPTS/TELEMETRY.',
     epilog='Example: python combine.py qx7wid.lua')
 
@@ -28,7 +28,7 @@ parser.add_argument(
 
 parser.add_argument(
     '--template',
-    default='widget.lua',
+    default='code.lua',
     help='Template widget file.')
 
 parser.set_defaults(header=True)

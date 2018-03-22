@@ -26,10 +26,7 @@ local QX7_Layout = {
   {
     column = 2;
     row = 1;
-    widget = SwitchWidget('sd', {
-    labels = {'Cut', 'Arm', 'Cut'},
-    flags = {0, BLINK + INVERS, 0}
-    })
+    widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
     column = 0;
@@ -44,17 +41,7 @@ local QX7_Layout = {
   {
     column = 2;
     row = 2;
-    not_models = {'Nano QX 3D'};
     widget = TimerWidget(2, {})
-  },
-  {
-    column = 2;
-    row = 2;
-    only_models = {'Nano QX 3D'};
-    widget = SwitchWidget('sc', {
-    labels = {'T40', 'T25', 'LIN'},
-    flags = {0, INVERS, INVERS}
-    })
   },
   {
     column = 1;
@@ -70,15 +57,6 @@ local QX7_Layout = {
     height = 2;
     width = 0;
     pad = 0;
-    widget = LineWidget({})
-  },
-  {
-    column = 2;
-    row = 2;
-    height = 0;
-    width = 1;
-    pad = 0;
-    not_models = {'Nano QX 3D'};
     widget = LineWidget({})
   },
   };
@@ -113,18 +91,12 @@ local X9D_Layout = {
   {
     column = 0;
     row = 1;
-    widget = SwitchWidget('sd', {
-    labels = {'Cut', 'Arm', 'Cut'},
-    flags = {0, BLINK + INVERS, 0}
-    })
+    widget = CurrentTimeWidget({})
   },
   {
     column = 1;
     row = 1;
-    widget = SwitchWidget('sc', {
-    labels = {'High', 'Low', 'Low'},
-    flags = {0, INVERS, INVERS}
-    })
+    widget = CurrentDateWidget({})
   },
   {
     column = 0;
@@ -134,16 +106,6 @@ local X9D_Layout = {
   {
     column = 1;
     row = 2;
-    only_models = {'Queen Bee'};
-    widget = SwitchWidget('sa', {
-    labels = {'NoFlp', 'Flap1', 'Flap2'},
-    flags = {0, INVERS, INVERS}
-    })
-  },
-  {
-    column = 1;
-    row = 2;
-    not_models = {'Queen Bee'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
   },
   {
@@ -154,28 +116,6 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    only_models = {'Queen Bee'};
-    widget = SwitchWidget('sb', {
-    labels = {'Rud40', 'Rd100', 'NoRud'},
-    flags = {0, INVERS, INVERS}
-    })
-  },
-  {
-    column = 1;
-    row = 3;
-    only_models = {'FM Edge'};
-    widget = ValueWidget('CelL', {label='CeL', decimals=2})
-  },
-  {
-    column = 1;
-    row = 3;
-    only_models = {'SU-29'};
-    widget = ValueWidget('A2', {decimals=1})
-  },
-  {
-    column = 1;
-    row = 3;
-    not_models = {'Queen Bee', 'FM Edge', 'SU-29'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
@@ -218,18 +158,8 @@ local X9D_Layout = {
     column = 0;
     row = 2;
     height = 0;
-    width = 1;
-    pad = 0;
-    only_models = {'Queen Bee'};
-    widget = LineWidget({})
-  },
-  {
-    column = 0;
-    row = 2;
-    height = 0;
     width = 2;
     pad = 0;
-    not_models = {'Queen Bee'};
     widget = LineWidget({})
   },
   {
@@ -238,15 +168,6 @@ local X9D_Layout = {
     height = 3;
     width = 0;
     pad = 0;
-    widget = LineWidget({})
-  },
-  {
-    column = 1;
-    row = 4;
-    height = 0;
-    width = 1;
-    pad = 0;
-    only_models = {'Queen Bee'};
     widget = LineWidget({})
   },
   {

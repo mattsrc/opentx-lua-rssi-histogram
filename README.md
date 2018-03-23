@@ -89,6 +89,12 @@ the simulator to see fake data being plotted.
 
 You can customize the layout and content of the telemetry sceen.
 
+For example, here is an example that does away with the RSSI graph completely:
+
+![Example with no RSSI](./config/configs/norssi.png)
+
+(located in `config/configs/norssi.lua`)
+
 The telemetry screen is composed of a set of *widgets*.  Each widget
 communicates a peice of information.  For example, there is a widget that tells
 you the value of a timer, one that displays the RSSI graph, etc.  You can
@@ -244,8 +250,12 @@ A widget is a Lua object that knows how to fetch some data and draw to the LCD.
 The basic way to create a widget is to call a function that creates and returns
 one.
 
+Defined widgets all take an options structure:
 
-### Custom Widgets
+    -- Defined with an option
+    widget = RSSIHistogramWidget({greyscale = true})
+    -- just take the default
+    widget = RSSIHistogramWidget({})
 
 If you want to add features to Widgets or create your own, refer to the comments
 and documentation in *config/widget.lua*
@@ -256,6 +266,8 @@ and documentation in *config/widget.lua*
 ### Current Date Widget
 
 Displays the current date as YYYY-MM-DD
+
+![Example Image](./images/current_date_widget.png)
 
 #### Usage Example:
 
@@ -277,6 +289,8 @@ Displays the current date as YYYY-MM-DD
 ### Current Time Widget
 
 Displays the current time in 24-hour format.
+
+![Example Image](./images/current_time_widget.png)
 
 #### Usage Example:
 
@@ -300,6 +314,8 @@ Displays the current time in 24-hour format.
 
 Draws a label that can be directly provided, or optionally provided via a
 callback function.
+
+![Example Image](./images/label_widget.png)
 
 #### Usage Example:
 
@@ -329,6 +345,8 @@ callback function.
 
 Used to draw lines between other widgets for grouping.
 
+![Example Image](./images/line_widget.png)
+
 #### Usage Example:
 
     {
@@ -350,6 +368,8 @@ Used to draw lines between other widgets for grouping.
 
 Draws a reatime RSSI histogram.  Autoscales Y axis.  Uses log scale for
 amounts so that rare readings still show up.
+
+![Example Image](./images/rssi_widget.png)
 
 Needs a pixel width of at least 100 as-coded or it wont draw anything.
 
@@ -380,6 +400,8 @@ Shows the value of a switch along with a custom label.  Can also change style
 The idea is both to remind the pilot what switches are relevant and to show if a
 switch is in a non-default state.
 
+![Example Image](./images/switch_widget.png)
+
 #### Usage Example:
   
 Say you control rates via switch SC and want the default setting to be high
@@ -396,15 +418,21 @@ Say you control rates via switch SC and want the default setting to be high
 The settings above will show High is SC if forward, and Low otherwise.
 Also, the Low labels will be displayed in an inverse font
 
+#### Parameters
+
+* `switch`: The name of the switch as defined by OpenTX.  Examples include `sa`, `sb`, `sc`.
+
 #### Options:
 
-* `flags`: Draw flags.  e.g. BOLD, INVERS
+* `flags`: Draw flags.  e.g. `BOLD`, `INVERS`
 * `labels`: Labels that correspond to each switch state
 
 
 ### TimerWidget
 
 Shows the value of a timer. 
+
+![Example Image](./images/timer_widget.png)
 
 #### Usage Example:
 
@@ -413,6 +441,10 @@ Shows the value of a timer.
    row = 2;
    widget = TimerWidget(0, {})
  },
+
+#### Parameters
+
+* `timer_number`: Which timer to display.  Zero-based.
 
 #### Options:
 
@@ -424,6 +456,8 @@ Shows the value of a timer.
 
 Draws a labeled value.  By default, calls getValue for the value.  See the
 OpenTX docs for available getValue strings.
+
+![Example Image](./images/value_widget.png)
 
 #### Usage Example:
 
@@ -438,13 +472,19 @@ OpenTX docs for available getValue strings.
       widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
     },
 
+#### Parameters
+
+* `parm`: The parameter to pass to `getValue()`.  Also used as the label by
+  default.  Note that `func` and `label` options below modify this behavior
+  somewhat.
+
 #### Options:
 
 * `label`: The label to put in front of the value.  If omitted, uses parm for
   the label.
-* `label_flags`: Label draw flags (e.g. BOLD).  See OpenTX docs for drawText
+* `label_flags`: Label draw flags (e.g. `BOLD`).  See OpenTX docs for drawText
   for more information
-* `value_flags`: Value draw flags (e.g. BOLD).  See OpenTX docs for drawText
+* `value_flags`: Value draw flags (e.g. `BOLD`).  See OpenTX docs for drawText
   for more information
 * `func`: If set, calls this function for the value instead of getValue()
 * `decimals`: If set, rounds the output value to the given number of decimals.
@@ -536,7 +576,7 @@ switch is toggled.  This can be done with a global variable.
 To start, choose a global variable index to use.  Then set this in your config
 to that index:
 
-  resetGlobalVarIndex = 5  -- choose GV6
+    resetGlobalVarIndex = 5  -- choose GV6
 
 Now, any time you want to reset the telemetry, write a non-zero value to that
 variable.  A basic setup is to create a special function that changes the

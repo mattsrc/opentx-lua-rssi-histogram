@@ -1,44 +1,117 @@
 # opentx-lua-rssi-histogram
 
-LUA telemetry script for OpenTX that provides an RSSI histogram.  It can be
-customized to show other status information as well.  Tested and used on a QX7
-and X9D with Open TX 2.2 for hundreds of flights.
+This project is a LUA telemetry script for OpenTX that provides an RSSI
+histogram.
 
-## Quick Start
+**It can be customized** to show other status information as well.
 
-The following instruction will work either on a real radio or simulated in
+It's been tested and used on a QX7 and X9D with Open TX 2.2 for hundreds of
+flights.  I have been finding it very useful and would like to freely share it.
+
+![Real X9D Telemetry](./images/real_telemetry_x9d.jpg)
+
+![Real QX7 Telemetry](./images/real_telemetry_qx7.jpg)
+
+## What is an RSSI Histogram?
+
+A way of viewing RSSI data that clearly shows signal range and trends.
+
+Many of us have viewed time-based RSSI plots in Companioni software, where the
+X axis is time and the Y axis is RSSI strength.  These are very useful for time
+correlation of RSSI with other events.
+
+A histogram is a different "view" of the same data.  It puts the RSSI strength
+in the X axis and the relative amount of time it was there in the Y axis.  This
+makes it easy to "see" your stats, know where RSSI is generally at, how it
+ranges and if there were any outlier events.  You lose time correlation but
+gain the ability to see trends better.  Both have their place and are useful in
+different situations.
+
+## Why is a RSSI Histogram Useful?
+
+Peace of mind and easy field experiments.
+
+With default Taranis setup, you can set an alarm at an RSSI of 45 or so and
+you'll know when RSSI is "good" or "bad".  But if one of your planes is flying
+at 300m with an RSSI in the 70s and a different plane in the 50s, you'll have
+no indication that the second plane is marginal.  The histogram makes it very
+easy to see the problem in the field by glancing at the graph between flights.
+
+As far as experiements, here are a few examples:
+
+* Does it matter if I put my radio antenna sideways verses straight up?
+* I'm going to try moving my receiver antennas, is it helping?
+* Do I get a better signal if I fly on the other end of the field?
+* I suspect that flying with dew on the grass is affecting my signal.  Is it true?
+
+Just about anything you might want to try, you can quickly get feedback in the
+field, then do followup as needed via Companion software at home.
+
+The intent of the graph is not to replace your need of logging data but to
+tighen the feedback loop for field experiments, make them more convienent, and
+make protential problems more discoverable in their early stages.
+
+
+## How To Install
+
+The following instructions will work either on a real radio or simulated in
 Companion software:
 
 Copy the script `SCRIPTS/TELEMETRY/widget.lua` to `SCRIPTS/TELEMETRY/` on your
 SD card
 
-Choose a model to configure and go to the "Telemetry Screens" page
+![X9D View](./images/sd_card_x9d.png)
 
-Select "widget.lua" for one of the telemetry pages
+![QX7 View](./images/sd_card_qx7.png)
+
+Choose a model to configure and go to the "Telemetry Screens" page Select
+"widget.lua" for one of the telemetry pages
+
+![X9D Telemetry Setup](./images/telemetry_setup_x9d.png)
+
+![QX7 Telemetry Setup](./images/telemetry_setup_qx7.png)
 
 Hold the "Page" button to see telemetry screens, then press the "Page" button
 to switch between screens.
 
+![X9D Telemetry](./images/telemetry_x9d.png)
+
+![QX7 Telemetry](./images/telemetry_qx7.png)
+
+If you are simulating the setup in Companion, you can turn on fake telmetry in
+the simulator to see fake data being plotted.
+
+![Companion Fake Telemetry](./images/fake_telemetry_companion.png)
+
+![QX7 Fake Telemetry](./images/fake_telemetry_qx7.png)
+
 ## Customization
 
-You can customize the layout and content of the telemetry sceen to show other
-telemetry values, times, switch states and more.
+You can customize the layout and content of the telemetry sceen.
 
-There are two ways to do this:
+The telemetry screen is composed of a set of *widgets*.  Each widget
+communicates a peice of information.  For example, there is a widget that tells
+you the value of a timer, one that displays the RSSI graph, etc.  You can
+customized which widgets you want and how they are laid out on the screen.
 
-* Edit SCRIPTS/TELEMETRY/widget.lua, search for "CONFIG START", and start
-  hacking in new values.
-* Create (or copy) a new file in config/configs.  This file contains only
-  the configuration data and no code.  You can then combine the data and
-  code using the provided python script in config.  For example:
-  _python combine.py configs/myconfig.lua_
+### Configuration File
 
-The second method involves extra steps but it will be easier to run with the
-latest version of the code.  You can also manage multiple configuration more
-easily with this method.  But it's up to you - starting simple might be the best
-way to start as you can easily change your mind later.
+There are *two* ways to manage configuration:
 
-### Layout
+Edit `SCRIPTS/TELEMETRY/widget.lua`, search for `CONFIG START`, and start
+hacking in new values.
+
+*or*
+  
+Create (or copy) a new file in `config/configs`.  This file contains only
+the configuration data and no code.  You can then combine the data and
+code using the provided python script in config.  For example:
+`python combine.py configs/funfly.lua`
+
+The second method involves extra steps but can make config management easier.
+It's up to you.
+
+### Widget Layout (Placement)
 
 Widget layout is via a flexible grid system.  This section explains what a
 flexible grid is and how to use it. If you are familiar with the concept, feel
@@ -64,7 +137,7 @@ As a final touch, we add lines to visually group the data.
 ![Grouping With Lines](./images/layout_example_4.png)
 
 With the above in mind, we are realy to understand the layout system.  To start,
-we provide a layout structura in luae:
+we provide a layout structure in the configuration file (e.g. `widget.lua`):
 
     layout = {
       -- stuff goes here
@@ -82,7 +155,7 @@ the spreadsheet example.
     }
 
 Note that the "0" row and columns are assumed and not put into the definition.
-So by the aboive definition:
+So by the above definition:
 
 * Cell 0, 0 has a width of 52 pixels and a height of 20 pixels.  
 * Cell 2, 2 has a width of (158 - 105) = 53 pixels and a height of
@@ -128,21 +201,20 @@ First, the model title:
       }
     }
 
-Let's looks at some of the new details.  The values _column_ and _row_ tell
-where to put the widget.  The _width_ paramter is used here to specify the
-column span of 2.  If the span was 1, you could omit _width_.  This is why there
-is no _height_, the default of 1 is what we want anyway.
+Let's looks at some of the new details.  The values `column` and `row` tell
+where to put the widget.  The `width` paramter is used here to specify the
+column span of 2.  If the span was 1, you could omit `width`.  This is why there
+is no `height`, the default height of 1 is fine.
 
-Finally, the widget itself.  We are using a very simple _LabelWidget_.  It's too
+Finally, the widget itself.  We are using a simple `LabelWidget`.  It's too
 simple, really.  Better would be to have the current model name as reported by
-OpenTX.  That is absolutly possible, but I'll defer the details until the
-"widgets" section below.
+OpenTX.  That is possible, but I'll defer the details until the "widgets"
+section below.
 
-Let's add one more widget, the histogram, to complete the example.  To fully
-reproduce the spreadsheet, we would need to add many more but this would expose
-details that I feel are best explained in the Widgets section below.  The
-focus of this section is understanding how rows, columns, widths, and heights
-work:
+To complete the example, let's add one more widget.  To fully reproduce the
+spreadsheet, we would need to add more but this would expose details that I
+feel are best explained in the Widgets section below.  The focus of this
+section is understanding how rows, columns, widths, and heights work:
 
 
     layout = {

@@ -21,24 +21,24 @@ correlation of RSSI with other events.
 ![Time RSSI Graph](./images/time_rssi.png)
 
 A histogram is a different "view" of the same data.  It puts the RSSI strength
-in the X axis and the relative amount of time it was there in the Y axis.
+in the X axis and the amount of time it was at that value in the Y axis.
 
 ![Histogram RSSI Graph](./images/histogram_rssi.png)
 
-This makes it easy to "see" your stats, know where RSSI is generally at, how it
-ranges and if there were any outlier events.  You lose time correlation but
-gain the ability to see trends better.  Both have their place and are useful in
-different situations.
+This makes it fast and easy to know how RSSI ranged over a flight and see if
+there were any outlier events.  You lose time correlation but gain the ability
+to see trends better.  Both have their place and are useful in different
+situations.
 
 ## Why is a RSSI Histogram Useful?
 
 Peace of mind and easy field experiments.
 
-With default Taranis setup, you can set an alarm at an RSSI of 45 or so and
-you'll know when RSSI is "good" or "bad".  But if one of your planes is flying
-at 300m with an RSSI in the 70s and a different plane in the 50s, you'll have
-no indication that the second plane is marginal.  The histogram makes it very
-easy to see the problem in the field by glancing at the graph between flights.
+With a typical Taranis setup, you can set an alarm at an RSSI of 45 or so and
+you'll know when RSSI is "bad".  But if one of your planes is flying at 300m
+with an RSSI in the 70s and a different plane in the 50s, you'll have no
+indication that the second plane is marginal.  The histogram makes it very easy
+to see the problem in the field by glancing at the graph between flights.
 
 As far as experiments, here are a few examples:
 

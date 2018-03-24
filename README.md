@@ -10,6 +10,53 @@ flights.  I have been finding it very useful and would like to freely share it.
 
 ![Real QX7 Telemetry](./images/real_telemetry_qx7.jpg)
 
+<!--ts-->
+Table of Contents
+=================
+
+   * [opentx-lua-rssi-histogram](#opentx-lua-rssi-histogram)
+      * [What is an RSSI Histogram?](#what-is-an-rssi-histogram)
+      * [Why is a RSSI Histogram Useful?](#why-is-a-rssi-histogram-useful)
+      * [How To Install](#how-to-install)
+      * [Customization](#customization)
+         * [Configuration File](#configuration-file)
+         * [Widget Layout (Placement)](#widget-layout-placement)
+      * [Widget Basics](#widget-basics)
+      * [Widget Reference](#widget-reference)
+         * [Current Date Widget](#current-date-widget)
+            * [Usage Example:](#usage-example)
+            * [Options:](#options)
+         * [Current Time Widget](#current-time-widget)
+            * [Usage Example:](#usage-example-1)
+            * [Options:](#options-1)
+         * [Label Widget](#label-widget)
+            * [Usage Example:](#usage-example-2)
+            * [Options:](#options-2)
+         * [Line Widget](#line-widget)
+            * [Usage Example:](#usage-example-3)
+            * [Options:](#options-3)
+         * [RSSI Histogram Widget](#rssi-histogram-widget)
+            * [Usage Example:](#usage-example-4)
+            * [Options:](#options-4)
+         * [Switch Widget](#switch-widget)
+            * [Usage Example:](#usage-example-5)
+            * [Parameters](#parameters)
+            * [Options:](#options-5)
+         * [Timer Widget](#timer-widget)
+            * [Usage Example:](#usage-example-6)
+            * [Parameters](#parameters-1)
+            * [Options:](#options-6)
+         * [Value Widget](#value-widget)
+            * [Usage Example:](#usage-example-7)
+            * [Parameters](#parameters-2)
+            * [Options:](#options-7)
+         * [Per Radio and Per Model Customization](#per-radio-and-per-model-customization)
+            * [Static Config](#static-config)
+            * [Dynamic Config - Per model widgets](#dynamic-config---per-model-widgets)
+            * [Dynamic Config - Per radio (or model) layouts](#dynamic-config---per-radio-or-model-layouts)
+         * [Resetting](#resetting)
+<!--te-->
+
 ## What is an RSSI Histogram?
 
 A way of viewing RSSI data that clearly shows signal range and trends.

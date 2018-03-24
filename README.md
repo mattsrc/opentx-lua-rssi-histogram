@@ -1,9 +1,7 @@
 # opentx-lua-rssi-histogram
 
-This project is a LUA telemetry script for OpenTX that provides an RSSI
-histogram.
-
-**It can be customized** to show other status information as well.
+This project is a LUA telemetry script for OpenTX that provides customized
+telemetry screens, including a RSSI Histogram.
 
 It's been tested and used on a QX7 and X9D with Open TX 2.2 for hundreds of
 flights.  I have been finding it very useful and would like to freely share it.
@@ -16,7 +14,7 @@ flights.  I have been finding it very useful and would like to freely share it.
 
 A way of viewing RSSI data that clearly shows signal range and trends.
 
-Many of us have viewed time-based RSSI plots in Companioni software, where the
+Many of us have viewed time-based RSSI plots in Companion software, where the
 X axis is time and the Y axis is RSSI strength.  These are very useful for time
 correlation of RSSI with other events.
 
@@ -37,19 +35,20 @@ at 300m with an RSSI in the 70s and a different plane in the 50s, you'll have
 no indication that the second plane is marginal.  The histogram makes it very
 easy to see the problem in the field by glancing at the graph between flights.
 
-As far as experiements, here are a few examples:
+As far as experiments, here are a few examples:
 
 * Does it matter if I put my radio antenna sideways verses straight up?
 * I'm going to try moving my receiver antennas, is it helping?
 * Do I get a better signal if I fly on the other end of the field?
-* I suspect that flying with dew on the grass is affecting my signal.  Is it true?
+* I suspect that flying with dew on the grass is affecting my signal.  Is it
+  true?
 
 Just about anything you might want to try, you can quickly get feedback in the
 field, then do followup as needed via Companion software at home.
 
 The intent of the graph is not to replace your need of logging data but to
-tighen the feedback loop for field experiments, make them more convienent, and
-make protential problems more discoverable in their early stages.
+tighten the feedback loop for field experiments, make them more convenient, and
+make potential problems more discoverable in their early stages.
 
 
 ## How To Install
@@ -78,7 +77,7 @@ to switch between screens.
 
 ![QX7 Telemetry](./images/telemetry_qx7.png)
 
-If you are simulating the setup in Companion, you can turn on fake telmetry in
+If you are simulating the setup in Companion, you can turn on fake telemetry in
 the simulator to see fake data being plotted.
 
 ![Companion Fake Telemetry](./images/fake_telemetry_companion.png)
@@ -87,7 +86,7 @@ the simulator to see fake data being plotted.
 
 ## Customization
 
-You can customize the layout and content of the telemetry sceen.
+You can customize the layout and content of the telemetry screen.
 
 For example, here is an example that does away with the RSSI graph completely:
 
@@ -96,7 +95,7 @@ For example, here is an example that does away with the RSSI graph completely:
 (located in `config/configs/norssi.lua`)
 
 The telemetry screen is composed of a set of *widgets*.  Each widget
-communicates a peice of information.  For example, there is a widget that tells
+communicates a piece of information.  For example, there is a widget that tells
 you the value of a timer, one that displays the RSSI graph, etc.  You can
 customized which widgets you want and how they are laid out on the screen.
 
@@ -123,7 +122,7 @@ Widget layout is via a flexible grid system.  This section explains what a
 flexible grid is and how to use it. If you are familiar with the concept, feel
 free to skip or skip this section.
 
-We'll start with an analogy that is nearly idential, a spreadsheet.  Here is a
+We'll start with an analogy that is nearly identical, a spreadsheet.  Here is a
 spreadsheet that contains our model name, a couple of switch states, a couple
 timers, some voltages, and the RSSI graph:
 
@@ -142,7 +141,7 @@ As a final touch, we add lines to visually group the data.
 
 ![Grouping With Lines](./images/layout_example_4.png)
 
-With the above in mind, we are realy to understand the layout system.  To start,
+With the above in mind, we are ready to understand the layout system.  To start,
 we provide a layout structure in the configuration file (e.g. `widget.lua`):
 
     layout = {
@@ -151,7 +150,7 @@ we provide a layout structure in the configuration file (e.g. `widget.lua`):
 
 Next we add a definition for rows and columns.  The numbers are pixel offsets.
 The QX7 has a screen resolution of 128x64 so the maximum sensible column offset
-is 127 and the maximum sensible row offset is 63.  The X9D has a reolution of
+is 127 and the maximum sensible row offset is 63.  The X9D has a resolution of
 212x64.  Let's proceed with the X9D, trying to make something that looks like
 the spreadsheet example.
 
@@ -169,7 +168,7 @@ So by the above definition:
 * Cell 3, 2 has a width of (211 - 158) = 53 pixels and a height of
   (52 - 41) = 11 pixels.
       
-and so on.
+...and so on.
 
 There is also the concept of padding.  Padding puts a bit of space around
 widgets, which usually looks nicer:
@@ -208,7 +207,7 @@ First, the model title:
     }
 
 Let's looks at some of the new details.  The values `column` and `row` tell
-where to put the widget.  The `width` paramter is used here to specify the
+where to put the widget.  The `width` parameter is used here to specify the
 column span of 2.  If the span was 1, you could omit `width`.  This is why there
 is no `height`, the default height of 1 is fine.
 
@@ -282,8 +281,8 @@ Displays the current date as YYYY-MM-DD
 
 #### Options:
 
-* `flags`: Flags are forwarded to drawText and can make the text bold,
-   at different sizes, etc.  See opentx docs for details.
+* `flags`: Flags are forwarded to `drawText()` and can make the text bold,
+   at different sizes, etc.  See OpenTX docs for details.
 * `separator`: Change the separator from '-' to some other character.
 
 ### Current Time Widget
@@ -305,8 +304,8 @@ Displays the current time in 24-hour format.
 
 #### Options:
 
-* `flags`: Flags are forwarded to drawText and can make the text bold,
-   at different sizes, etc.  See opentx docs for details.
+* `flags`: Flags are forwarded to `drawText()` and can make the text bold,
+   at different sizes, etc.  See OpenTX docs for details.
 * `flash`: If true, flashes the ':' characters once a second.
 * `show_seconds`: If true, includes seconds in the label.
 
@@ -337,8 +336,8 @@ callback function.
 
 * `label`: Use a simple string label.  If `init_func` is set, this is ignored
 * `init_func`: Call the given function and display it's returned value
-* `label_flags`: Flags are forwarded to drawText and can make the text bold,
-   at different sizes, etc.  See opentx docs for details.
+* `label_flags`: Flags are forwarded to `drawText()` and can make the text
+   bold, at different sizes, etc.  See OpenTX docs for details.
 
 
 ### Line Widget
@@ -360,13 +359,13 @@ Used to draw lines between other widgets for grouping.
 
 #### Options:
 
-* `pattern`: Settings for `drawLine()` pattern.  See openTX docs for details.
+* `pattern`: Settings for `drawLine()` pattern.  See OpenTX docs for details.
 * `flags`: Settings for `drawLine()` flags.  See OpenTX docs for details.
 
 
 ### RSSI Histogram Widget
 
-Draws a reatime RSSI histogram.  Autoscales Y axis.  Uses log scale for
+Draws a real time RSSI histogram.  Auto scales Y axis.  Uses log scale for
 amounts so that rare readings still show up.
 
 ![Example Image](./images/rssi_widget.png)
@@ -392,7 +391,7 @@ Needs a pixel width of at least 100 as-coded or it wont draw anything.
   display.
 
 
-### SwitchWidget
+### Switch Widget
 
 Shows the value of a switch along with a custom label.  Can also change style
 (e.g. bold, inverse, flashing) depending on state.
@@ -428,7 +427,7 @@ Also, the Low labels will be displayed in an inverse font
 * `labels`: Labels that correspond to each switch state
 
 
-### TimerWidget
+### Timer Widget
 
 Shows the value of a timer. 
 
@@ -436,11 +435,11 @@ Shows the value of a timer.
 
 #### Usage Example:
 
- {
-   column = 0;
-   row = 2;
-   widget = TimerWidget(0, {})
- },
+    {
+      column = 0;
+      row = 2;
+      widget = TimerWidget(0, {})
+    },
 
 #### Parameters
 
@@ -454,8 +453,8 @@ Shows the value of a timer.
 
 ### Value Widget
 
-Draws a labeled value.  By default, calls getValue for the value.  See the
-OpenTX docs for available getValue strings.
+Draws a labeled value.  By default, calls `getValue()` for the value.  See the
+OpenTX docs for available `getValue()` strings.
 
 ![Example Image](./images/value_widget.png)
 
@@ -480,13 +479,13 @@ OpenTX docs for available getValue strings.
 
 #### Options:
 
-* `label`: The label to put in front of the value.  If omitted, uses parm for
+* `label`: The label to put in front of the value.  If omitted, uses `parm` for
   the label.
-* `label_flags`: Label draw flags (e.g. `BOLD`).  See OpenTX docs for drawText
-  for more information
-* `value_flags`: Value draw flags (e.g. `BOLD`).  See OpenTX docs for drawText
-  for more information
-* `func`: If set, calls this function for the value instead of getValue()
+* `label_flags`: Label draw flags (e.g. `BOLD`).  See OpenTX docs for
+   `drawText()` for more information.
+* `value_flags`: Value draw flags (e.g. `BOLD`).  See OpenTX docs for
+   `drawText()` for more information.
+* `func`: If set, calls this function for the value instead of `getValue()`
 * `decimals`: If set, rounds the output value to the given number of decimals.
   e.g.  5.2345 becomes 5.23 if decimals = 2
 
@@ -498,9 +497,9 @@ To support multiple radios and models, you have two options:
 #### Static Config
 
 * Create a separate config for each model you have.  These are best
-  placed in _config/configs_
-* Use _configs/combine.py_ to make a lua for each model.  Example usage is
-  _python combine.py configs/edg540.lua_
+  placed in `config/configs`
+* Use `configs/combine.py` to make a lua for each model.  Example usage is
+  `python combine.py configs/edg540.lua`
 * In the telemetry page for each model, choose the corresponding lua file.
 
 This approach has downsides if you have many models - especially since models
@@ -545,28 +544,28 @@ something else.
 
 #### Dynamic Config - Per radio (or model) layouts
 
-The function *chooseSetup* returns the layout config.  This can simply return a
-set config or can optionaly contain any sort of logic you want.  Here is a
+The function `chooseSetup()` returns the layout config.  This can simply return
+a set config or can optionally contain any sort of logic you want.  Here is a
 simple script that returns a different config depending on radio model:
 
-  local QX7_Layout = {
-    -- stuff
-  }
-
-  local X9D_Layout = {
-    -- stuff
-  }
-
-  local function chooseSetup()
-    local _, radio = getVersion()
+    local QX7_Layout = {
+      -- stuff
+    }
   
+    local X9D_Layout = {
+      -- stuff
+    }
   
-    if string.find(radio, 'x9D') ~= nil then
-      return X9D_Layout
+    local function chooseSetup()
+      local _, radio = getVersion()
+    
+    
+      if string.find(radio, 'x9D') ~= nil then
+        return X9D_Layout
+      end
+  
+      return QX7_Layout
     end
-
-    return QX7_Layout
-  end
 
 ### Resetting
 

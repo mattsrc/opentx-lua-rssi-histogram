@@ -18,9 +18,14 @@ Many of us have viewed time-based RSSI plots in Companion software, where the
 X axis is time and the Y axis is RSSI strength.  These are very useful for time
 correlation of RSSI with other events.
 
+![Time RSSI Graph](./images/time_rssi.png)
+
 A histogram is a different "view" of the same data.  It puts the RSSI strength
-in the X axis and the relative amount of time it was there in the Y axis.  This
-makes it easy to "see" your stats, know where RSSI is generally at, how it
+in the X axis and the relative amount of time it was there in the Y axis.
+
+![Histogram RSSI Graph](./images/histogram_rssi.png)
+
+This makes it easy to "see" your stats, know where RSSI is generally at, how it
 ranges and if there were any outlier events.  You lose time correlation but
 gain the ability to see trends better.  Both have their place and are useful in
 different situations.

@@ -149,7 +149,7 @@ For example, here is an example that does away with the RSSI graph completely:
 The telemetry screen is composed of a set of *widgets*.  Each widget
 communicates a piece of information.  For example, there is a widget that tells
 you the value of a timer, one that displays the RSSI graph, etc.  You can
-customized which widgets you want and how they are laid out on the screen.
+customize which widgets you want and how they are laid out on the screen.
 
 ### Configuration File
 
@@ -180,8 +180,8 @@ timers, some voltages, and the RSSI graph:
 
 ![Basic Example](./images/layout_example_1.png)
 
-The first improvement is to make the title and graph extend to take more than
-one cell:
+The first improvement is to make the title and graph extend to occupy multiple
+cells:
 
 ![Combining Rows and Columns](./images/layout_example_2.png)
 
@@ -301,7 +301,8 @@ A widget is a Lua object that knows how to fetch some data and draw to the LCD.
 The basic way to create a widget is to call a function that creates and returns
 one.
 
-Defined widgets all take an options structure:
+All Widgets take an options structure.  You can just pass `{}` if you don't
+have any options to set:
 
     -- Defined with an option
     widget = RSSIHistogramWidget({greyscale = true})
@@ -309,7 +310,7 @@ Defined widgets all take an options structure:
     widget = RSSIHistogramWidget({})
 
 If you want to add features to Widgets or create your own, refer to the comments
-and documentation in *config/widget.lua*
+and documentation in `config/widget.lua`
 
 
 ## Widget Reference
@@ -438,9 +439,8 @@ Needs a pixel width of at least 100 as-coded or it wont draw anything.
 
 #### Options:
 
-* `greyscale`: If true, then the RSSI critical is drawn as a greyscale
-  rectangle.  This won't work on the QX7, which has a monochrome
-  display.
+* `greyscale`: If true, then the RSSI critical level is drawn as a greyscale
+rectangle.  This won't work on the QX7, which has a monochrome display.
 
 
 ### Switch Widget
@@ -460,8 +460,8 @@ Say you control rates via switch SC and want the default setting to be high
     {
       column = 1;
       row = 1;
-      widget = SwitchWidget('sc', {
-      labels = {'High', 'Low', 'Low'},
+      widget = SwitchWidget("sc", {
+      labels = {"High", "Low", "Low"},
       flags = {0, INVERS, INVERS}
       })
     },
@@ -475,7 +475,8 @@ Also, the Low labels will be displayed in an inverse font
 
 #### Options:
 
-* `flags`: Draw flags.  e.g. `BOLD`, `INVERS`
+* `flags`: Draw flags that correspong to each switch state.  e.g. `BOLD`,
+`INVERS`
 * `labels`: Labels that correspond to each switch state
 
 
@@ -515,12 +516,12 @@ OpenTX docs for available `getValue()` strings.
     {
       column = 0;
       row = 1;
-      widget = ValueWidget('RS', {func=getRSSI})
+      widget = ValueWidget("RS", {func=getRSSI})
     },
     {
       column = 1;
       row = 1;
-      widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+      widget = ValueWidget("tx-voltage", {label="TxV", decimals=1})
     },
 
 #### Parameters
@@ -539,7 +540,7 @@ OpenTX docs for available `getValue()` strings.
    `drawText()` for more information.
 * `func`: If set, calls this function for the value instead of `getValue()`
 * `decimals`: If set, rounds the output value to the given number of decimals.
-  e.g.  5.2345 becomes 5.23 if decimals = 2
+  e.g.  `5.2345` becomes `5.23` if `decimals = 2`
 
 
 ### Per Radio and Per Model Customization
@@ -550,17 +551,17 @@ To support multiple radios and models, you have two options:
 
 * Create a separate config for each model you have.  These are best
   placed in `config/configs`
-* Use `configs/combine.py` to make a lua for each model.  Example usage is
+* Use `configs/combine.py` to make a lua script for each model.  Example usage is
   `python combine.py configs/edg540.lua`
 * In the telemetry page for each model, choose the corresponding lua file.
 
-This approach has downsides if you have many models - especially since models
-tend to be similar.  Below you can learn to do it with one config.
+This approach has downsides if you have many models - especially since model
+setups tend to be similar.  Below you can learn to do it with one config.
 
 #### Dynamic Config - Per model widgets
 
 There are two additional widget fields: *not_models* and *only_models* which can
-be used as filters.  Each takes a list.
+be used as filters.  Each takes a list of model names.
 
 For example, say you have the following layout:
 
@@ -574,31 +575,32 @@ For example, say you have the following layout:
         {
           column = 1;
           row = 2;
-          only_models = {'Mustang', 'Beaver'};
-          widget = SwitchWidget('sa', {
-          labels = {'NoFlp', 'Flap1', 'Flap2'},
+          only_models = {"Mustang", "Beaver"};
+          widget = SwitchWidget("sa", {
+          labels = {"NoFlp", "Flap1", "Flap2"},
           flags = {0, INVERS, INVERS}
           })
         },
         {
           column = 1;
           row = 2;
-          not_models = {'Mustang', 'Beaver'};
-          widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+          not_models = {"Mustang", "Beaver"};
+          widget = ValueWidget("tx-voltage", {label="TxV", decimals=1})
         },
         -- more stuff...
     }
 
-In the example above, we show a "Flaps" status for the 'Mustang' and 'Beaver'
-models while showing TX voltage for everyone else.  The idea is that other
-models we own don't have flaps and it would be better to use the space for
-something else.
+In the example above, we show a `Flaps` status for the `Mustang` and `Beaver`
+models while showing `TxV` for everyone else.  The idea is that other models we
+own don't have flaps and it would be better to use the space for something
+else.
 
 #### Dynamic Config - Per radio (or model) layouts
 
-The function `chooseSetup()` returns the layout config.  This can simply return
-a set config or can optionally contain any sort of logic you want.  Here is a
-simple script that returns a different config depending on radio model:
+The function `chooseSetup()` is called to return a layout config.  This can
+simply return a set config or can optionally contain any sort of logic you
+want.  Here is a simple script that returns a different config depending on
+radio model:
 
     local QX7_Layout = {
       -- stuff
@@ -612,7 +614,7 @@ simple script that returns a different config depending on radio model:
       local _, radio = getVersion()
     
     
-      if string.find(radio, 'x9D') ~= nil then
+      if string.find(radio, "x9D") ~= nil then
         return X9D_Layout
       end
   

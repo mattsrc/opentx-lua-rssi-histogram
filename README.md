@@ -4,7 +4,7 @@ This project is a LUA telemetry script for OpenTX that provides customized
 telemetry screens, including a RSSI Histogram.
 
 It's been tested and used on a QX7 and X9D with Open TX 2.2 for hundreds of
-flights.  I have been finding it very useful and would like to freely share it.
+flights.  I have been finding it useful and would like to freely share it.
 
 ![Real X9D Telemetry](./images/real_telemetry_x9d.jpg)
 
@@ -61,9 +61,9 @@ Table of Contents
 
 A way of viewing RSSI data that clearly shows signal range and trends.
 
-Many of us have viewed time-based RSSI plots in Companion software, where the
-X axis is time and the Y axis is RSSI strength.  These are very useful for time
-correlation of RSSI with other events.
+Many of us have viewed time-based RSSI plots, where the X axis is time and the
+Y axis is RSSI strength.  These are useful for time correlation of RSSI with
+other events.
 
 ![Time RSSI Graph](./images/time_rssi.png)
 
@@ -73,18 +73,18 @@ in the X axis and the amount of time it was at that value in the Y axis.
 ![Histogram RSSI Graph](./images/histogram_rssi.png)
 
 This makes it fast and easy to know how RSSI ranged over a flight and see if
-there were any outlier events.  You lose time correlation but gain the ability
-to see trends better.  Both have their place and are useful in different
-situations.
+there were any outlier events.
+
+Both types of graphs have their place and are useful in different situations.
 
 ## Why is a RSSI Histogram Useful?
 
 Peace of mind and easy field experiments.
 
 With a typical Taranis setup, you can set an alarm at an RSSI of 45 or so and
-you'll know when RSSI is "bad".  But if one of your planes is flying at 300m
-with an RSSI in the 70s and a different plane in the 50s, you'll have no
-indication that the second plane is marginal.  The histogram makes it very easy
+you'll know when RSSI is "bad".  But if one of your planes is flying at 300
+meters with an RSSI in the 70s and a different plane in the 50s, you'll have no
+indication that the second plane is marginal.  The histogram makes it easy
 to see the problem in the field by glancing at the graph between flights.
 
 As far as experiments, here are a few examples:
@@ -95,12 +95,13 @@ As far as experiments, here are a few examples:
 * I suspect that flying with dew on the grass is affecting my signal.  Is it
   true?
 
-Just about anything you might want to try, you can quickly get feedback in the
-field, then do follow-up as needed via Companion software at home.
+For just about anything you might want to try, you can quickly get feedback in
+the field, then do follow-up as needed by viewing log data at home.
 
-The intent of the graph is not to replace your need of logging data but to
-tighten the feedback loop for field experiments, make them more convenient, and
-make potential problems more discoverable in their early stages.
+Note that the intent of the graph is not to *replace* your need to set alarms
+and log data but to tighten the feedback loop for field experiments, make them
+more convenient, and make potential problems more discoverable in their early
+stages.
 
 
 ## How To Install
@@ -172,11 +173,11 @@ easier.  It's up to you.
 
 Widget layout is via a flexible grid system.  This section explains what a
 flexible grid is and how to use it. If you are familiar with the concept, feel
-free to skip or skip this section.
+free to skim this section.
 
 We'll start with an analogy that is nearly identical, a spreadsheet.  Here is a
 spreadsheet that contains our model name, a couple of switch states, a couple
-timers, some voltages, and the RSSI graph:
+of timers, some voltages, and the RSSI graph:
 
 ![Basic Example](./images/layout_example_1.png)
 
@@ -547,7 +548,7 @@ OpenTX docs for available `getValue()` strings.
 
 To support multiple radios and models, you have two options:
 
-#### Static Configuration
+#### Option 1: Static Configuration
 
 * Create a separate configuration for each model you have.  These are best
   placed in `config/configs`
@@ -559,9 +560,9 @@ This approach has downsides if you have many models - especially since model
 setups tend to be similar.  Below you can learn to do it with one
 configuration.
 
-#### Dynamic Configuration - Per model widgets
+#### Option 2: Dynamic Configuration - Per model widgets
 
-There are two additional widget fields: *not_models* and *only_models* which can
+There are two additional widget fields: `not_models` and `only_models` which can
 be used as filters.  Each takes a list of model names.
 
 For example, say you have the following layout:
@@ -615,7 +616,7 @@ depending on radio model:
       local _, radio = getVersion()
     
     
-      if string.find(radio, "x9D") ~= nil then
+      if string.find(radio, "x9d") ~= nil then
         return X9D_Layout
       end
   
@@ -633,5 +634,5 @@ configuration to that index:
     resetGlobalVarIndex = 5  -- choose GV6
 
 Now, any time you want to reset the telemetry, write a non-zero value to that
-variable.  A basic setup is to create a special function that changes the
-variable.
+variable.  A basic setup is to create a special function that sets the global
+variable to 1.

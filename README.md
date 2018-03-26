@@ -96,7 +96,7 @@ As far as experiments, here are a few examples:
   true?
 
 Just about anything you might want to try, you can quickly get feedback in the
-field, then do followup as needed via Companion software at home.
+field, then do follow-up as needed via Companion software at home.
 
 The intent of the graph is not to replace your need of logging data but to
 tighten the feedback loop for field experiments, make them more convenient, and
@@ -162,11 +162,11 @@ hacking in new values.
   
 Create (or copy) a new file in `config/configs`.  This file contains only
 the configuration data and no code.  You can then combine the data and
-code using the provided python script in config.  For example:
+code using the provided python script `config/combine.lua`.  For example:
 `python combine.py configs/funfly.lua`
 
-The second method involves extra steps but can make config management easier.
-It's up to you.
+The second method involves extra steps but can make configuration management
+easier.  It's up to you.
 
 ### Widget Layout (Placement)
 
@@ -297,7 +297,7 @@ section is understanding how rows, columns, widths, and heights work:
 
 ## Widget Basics
 
-A widget is a Lua object that knows how to fetch some data and draw to the LCD.
+A widget is a LUA object that knows how to fetch some data and draw to the LCD.
 The basic way to create a widget is to call a function that creates and returns
 one.
 
@@ -317,7 +317,7 @@ and documentation in `config/widget.lua`
 
 ### Current Date Widget
 
-Displays the current date as YYYY-MM-DD
+Displays the current date as `YYYY-MM-DD`
 
 ![Example Image](./images/current_date_widget.png)
 
@@ -439,7 +439,7 @@ Needs a pixel width of at least 100 as-coded or it wont draw anything.
 
 #### Options:
 
-* `greyscale`: If true, then the RSSI critical level is drawn as a greyscale
+* `greyscale`: If true, then the RSSI critical level is drawn as a grey scale
 rectangle.  This won't work on the QX7, which has a monochrome display.
 
 
@@ -475,7 +475,7 @@ Also, the Low labels will be displayed in an inverse font
 
 #### Options:
 
-* `flags`: Draw flags that correspong to each switch state.  e.g. `BOLD`,
+* `flags`: Draw flags that corresponding to each switch state.  e.g. `BOLD`,
 `INVERS`
 * `labels`: Labels that correspond to each switch state
 
@@ -547,18 +547,19 @@ OpenTX docs for available `getValue()` strings.
 
 To support multiple radios and models, you have two options:
 
-#### Static Config
+#### Static Configuration
 
-* Create a separate config for each model you have.  These are best
+* Create a separate configuration for each model you have.  These are best
   placed in `config/configs`
-* Use `configs/combine.py` to make a lua script for each model.  Example usage is
+* Use `configs/combine.py` to make a LUA script for each model.  Example usage is
   `python combine.py configs/edg540.lua`
-* In the telemetry page for each model, choose the corresponding lua file.
+* In the telemetry page for each model, choose the corresponding LUA file.
 
 This approach has downsides if you have many models - especially since model
-setups tend to be similar.  Below you can learn to do it with one config.
+setups tend to be similar.  Below you can learn to do it with one
+configuration.
 
-#### Dynamic Config - Per model widgets
+#### Dynamic Configuration - Per model widgets
 
 There are two additional widget fields: *not_models* and *only_models* which can
 be used as filters.  Each takes a list of model names.
@@ -595,12 +596,12 @@ models while showing `TxV` for everyone else.  The idea is that other models we
 own don't have flaps and it would be better to use the space for something
 else.
 
-#### Dynamic Config - Per radio (or model) layouts
+#### Dynamic Configuration - Per radio (or model) layouts
 
-The function `chooseSetup()` is called to return a layout config.  This can
-simply return a set config or can optionally contain any sort of logic you
-want.  Here is a simple script that returns a different config depending on
-radio model:
+The function `chooseSetup()` is called to return a layout configuration.  This
+can simply return a set configuration or can optionally contain any sort of
+logic you want.  Here is a simple script that returns a different configuration
+depending on radio model:
 
     local QX7_Layout = {
       -- stuff
@@ -626,8 +627,8 @@ radio model:
 You may want to reset the telemetry graph when resetting a flight, or when a
 switch is toggled.  This can be done with a global variable.
 
-To start, choose a global variable index to use.  Then set this in your config
-to that index:
+To start, choose a global variable index to use.  Then set this in your
+configuration to that index:
 
     resetGlobalVarIndex = 5  -- choose GV6
 

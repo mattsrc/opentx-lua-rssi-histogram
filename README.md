@@ -365,8 +365,10 @@ Displays the current time in 24-hour format.
 
 ### Label Widget
 
-Draws a label that can be directly provided, or optionally provided via a
-callback function.
+Draws a static (non-changing) label that can be directly provided, or
+optionally provided via a callback function.
+
+If you are interested in a dynamic (changing value), use `ValueWidget` instead.
 
 ![Example Image](./images/label_widget.png)
 
@@ -456,7 +458,7 @@ switch is in a non-default state.
 
 #### Usage Example:
   
-Say you control rates via switch SC and want the default setting to be high
+Say you control rates via switch SC and want the "normal" setting to be high
 
     {
       column = 1;
@@ -467,7 +469,7 @@ Say you control rates via switch SC and want the default setting to be high
       })
     },
 
-The settings above will show High is SC if forward, and Low otherwise.
+The settings above will show High if switch SC is forward, and Low otherwise.
 Also, the Low labels will be displayed in an inverse font
 
 #### Parameters
@@ -562,7 +564,7 @@ configuration.
 
 #### Option 2: Dynamic Configuration - Per model widgets
 
-There are two additional widget fields: `not_models` and `only_models` which can
+There are two additional layout fields: `not_models` and `only_models` which can
 be used as filters.  Each takes a list of model names.
 
 For example, say you have the following layout:
@@ -599,7 +601,7 @@ else.
 
 #### Dynamic Configuration - Per radio (or model) layouts
 
-The function `chooseSetup()` is called to return a layout configuration.  This
+The function `chooseLayout()` is called to return a layout configuration.  This
 can simply return a set configuration or can optionally contain any sort of
 logic you want.  Here is a simple script that returns a different configuration
 depending on radio model:
@@ -612,7 +614,7 @@ depending on radio model:
       -- stuff
     }
   
-    local function chooseSetup()
+    local function chooseLayout()
       local _, radio = getVersion()
     
     

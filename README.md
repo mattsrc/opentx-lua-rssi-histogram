@@ -3,8 +3,8 @@
 This project is a LUA telemetry script for OpenTX that provides customized
 telemetry screens, including a RSSI Histogram.
 
-It's been tested and used on a QX7 and X9D with Open TX 2.2 for hundreds of
-flights.  I have been finding it useful and would like to freely share it.
+It's been tested and used on a QX7 and X9D with OpenTX 2.2 for hundreds of
+flights.  I finding it very useful and would like to freely share it.
 
 ![Real X9D Telemetry](./images/real_telemetry_x9d.jpg)
 
@@ -311,7 +311,7 @@ have any options to set:
     widget = RSSIHistogramWidget({})
 
 If you want to add features to Widgets or create your own, refer to the comments
-and documentation in `config/widget.lua`
+and documentation in `config/code.lua`
 
 
 ## Widget Reference

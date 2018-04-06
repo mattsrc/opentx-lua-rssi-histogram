@@ -232,7 +232,7 @@ local function SwitchWidget(switch, options)
   local widget = {
   draw = function(self, rx, ry, rw, rh)
     local switch_val = (getValue(switch) + 1024) * (switch_positions - 1) / 2048
-    flags = 0
+    local flags = 0
     if options.flags then
     flags = options.flags[switch_val + 1]
     end

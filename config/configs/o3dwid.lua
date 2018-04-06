@@ -186,7 +186,27 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
+    not_models = {'Queen Bee', 'FM Edge'};
     widget = ValueWidget('RxBt-', {label='RV-', decimals=1})
+  },
+  {
+    column = 1;
+    row = 4;
+    only_models = {'Queen Bee'};
+    widget = ValueWidget('CelL', {label='CeL', decimals=2})
+  },
+  {
+    column = 1;
+    row = 4;
+    only_models = {'FM Edge'};
+    widget = ValueWidget('Gyr', {
+      func = function()
+		if getValue('ch10') > 750 then
+		  return 'OFF'
+		end
+		return math.floor(getValue('ch9') * 100 / 1024 + 0.5)
+	  end
+	})
   },
   {
     column = 2;

@@ -163,7 +163,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    only_models = {'FM Edge'};
+    only_models = {'FM Edge', 'Skywing 50e'};
     widget = ValueWidget('CelL', {label='CeL', decimals=2})
   },
   {
@@ -175,7 +175,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    not_models = {'Queen Bee', 'FM Edge', 'SU-29'};
+    not_models = {'Queen Bee', 'FM Edge', 'SU-29', 'Skywing 50e'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {

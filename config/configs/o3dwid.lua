@@ -21,7 +21,23 @@ local QX7_Layout = {
   {
     column = 1;
     row = 1;
+    not_models = {'Combat1', 'UMX Timber'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+  },
+  {
+    column = 1;
+    row = 1;
+    only_models = {'Combat1'};
+    widget = ValueWidget('A2', {decimals=1})
+  },
+  {
+    column = 1;
+    row = 1;
+    only_models = {'UMX Timber'};
+    widget = SwitchWidget('sb', {
+    labels = {'NoFlp', 'Flap1', 'Flap2'},
+    flags = {0, INVERS, INVERS}
+    })
   },
   {
     column = 2;

@@ -100,6 +100,91 @@ local QX7_Layout = {
   };
 }
 
+-- The XK K110 has no telemetry so lets make a custrom screen
+local K110_Layout = {
+  columns = {63, 127};
+  rows = {22, 43, 53, 63};
+  pad = 2;
+  widgets = {
+  {
+    column = 0;
+    row = 0;
+	width = 2;
+    widget = TimerWidget(0, {
+      label_flags = DBLSIZE;
+      timer_flags = DBLSIZE;
+    })
+  },
+  {
+    column = 0;
+    row = 1;
+	width = 2;
+    widget = TimerWidget(1, {
+      label_flags = DBLSIZE;
+      timer_flags = DBLSIZE;
+    })
+  },
+  {
+    column = 0;
+    row = 2;
+    widget = SwitchWidget('sd', {
+    labels = {'Cut', 'Arm', 'Cut'},
+    flags = {0, BLINK + INVERS, 0}
+    })
+  },
+  {
+    column = 1;
+    row = 2;
+    widget = SwitchWidget('sc', {
+    labels = {'Idle1', 'Idle2', 'Idle2'},
+    flags = {0, BLINK + INVERS, 0}
+    })
+  },
+  {
+    column = 0;
+    row = 3;
+    widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+  },
+  {
+    column = 1;
+    row = 3;
+    widget = CurrentTimeWidget({flash = false, show_seconds = true})
+  },
+  {
+    column = 0;
+    row = 1;
+    height = 0;
+    width = 2;
+    pad = 0;
+    widget = LineWidget({})
+  },
+  {
+    column = 0;
+    row = 2;
+    height = 0;
+    width = 2;
+    pad = 0;
+    widget = LineWidget({})
+  },
+  {
+    column = 0;
+    row = 3;
+    height = 0;
+    width = 2;
+    pad = 0;
+    widget = LineWidget({})
+  },
+  {
+    column = 1;
+    row = 3;
+    height = 1;
+    width = 0;
+    pad = 0;
+    widget = LineWidget({})
+  },
+  };
+}
+
 -- X9D display is 212x64 pixels.  This setup puts RSSI on the right side and
 -- other data on the left
 --
@@ -301,6 +386,11 @@ local function chooseLayout()
 
   if string.find(radio, 'x9d') ~= nil then
     return X9D_Layout
+  end
+
+
+  if model.getInfo().name == 'XK K110' then
+	return K110_Layout
   end
 
   return QX7_Layout

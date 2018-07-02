@@ -273,7 +273,10 @@ end
 --
 local function CurrentTimeWidget(options)
   local flags = options.flags or 0
-  local flash = options.flash or true
+  local flash = true
+  if options.flash ~= nil then
+	flash = options.flash
+  end
   local show_seconds = options.show_seconds or false
 
   local widget = {

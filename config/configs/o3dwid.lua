@@ -135,20 +135,23 @@ local K110_Layout = {
   {
     column = 1;
     row = 2;
+    widget = SwitchWidget('sf', {
+    labels = {'Cut', 'Arm', 'Arm'},
+    flags = {0, BLINK + INVERS, BLINK + INVERS}
+    })
+  },
+  {
+    column = 0;
+    row = 3;
     widget = SwitchWidget('sc', {
     labels = {'Idle1', 'Idle2', 'Idle2'},
     flags = {0, BLINK + INVERS, 0}
     })
   },
   {
-    column = 0;
-    row = 3;
-    widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
-  },
-  {
     column = 1;
     row = 3;
-    widget = CurrentTimeWidget({flash = false, show_seconds = true})
+    widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
   },
   {
     column = 0;
@@ -287,7 +290,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    not_models = {'Queen Bee', 'FM Edge'};
+    not_models = {'Skywing 50e', 'Queen Bee', 'FM Edge'};
     widget = ValueWidget('RxBt-', {label='RV-', decimals=1})
   },
   {
@@ -299,7 +302,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    only_models = {'FM Edge'};
+    only_models = {'Skywing 50e', 'FM Edge'};
     widget = ValueWidget('Gyr', {
       func = function()
 		if getValue('ch10') > 750 then

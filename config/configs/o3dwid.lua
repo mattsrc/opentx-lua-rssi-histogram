@@ -11,7 +11,7 @@ local QX7_Layout = {
     row = 0;
     width = 3;
     pad = 3;
-    widget = RSSIHistogramWidget({})
+    widget = RSSIHistogramWidget({throttle_chan='ls3'})
   },
   {
     column = 0;
@@ -21,14 +21,8 @@ local QX7_Layout = {
   {
     column = 1;
     row = 1;
-    not_models = {'Combat1', 'UMX Timber'};
+    not_models = {'UMX Timber'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
-  },
-  {
-    column = 1;
-    row = 1;
-    only_models = {'Combat1'};
-    widget = ValueWidget('A2', {decimals=1})
   },
   {
     column = 1;
@@ -212,7 +206,7 @@ local X9D_Layout = {
     row = 0;
     width = 2;
     height = 4;
-    widget = RSSIHistogramWidget({greyscale = true})
+    widget = RSSIHistogramWidget({throttle_chan='ls3', greyscale = true})
   },
   {
     column = 0;

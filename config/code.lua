@@ -54,7 +54,7 @@ local function RSSIHistogramWidget(options)
   init = function(self)
     self.max_bucket = 0
     self.max_log_bucket = 0
-    for i=1, 100
+    for i=0, 100
     do
     self.buckets[i] = 0
     end
@@ -62,9 +62,15 @@ local function RSSIHistogramWidget(options)
 
   bg = function(self)
       local rssi = getRSSI()
-      if rssi <= 0 then
-        return
-      elseif rssi > 100 then
+      if options.throttle_chan then
+		if (getValue(options.throttle_chan) < -900) and (rssi <= 0) then
+          return
+		end
+	  elseif rssi <= 0 then
+		return
+	  end
+
+      if rssi > 100 then
         -- sometimes RSSI can be > 100, but cap it here for graphing purposes
         rssi = 100
       end
@@ -115,7 +121,7 @@ local function RSSIHistogramWidget(options)
     end 
 
     -- draw each bucket
-    for i = 1, 100 do
+    for i = 0, 100 do
       local bval = self.buckets[i]
       if bval > 0 then
         local height = bh * math.log(bval) / self.max_log_bucket 
@@ -124,7 +130,7 @@ local function RSSIHistogramWidget(options)
 
         -- Draw the line differently if it's the current RSSI.  This gives
         -- a visual indicator of where RSSI currently is.
-        if i == rssi then
+        if i == rssi and rssi > 0 then
           if options.greyscale then
             lcd.drawLine(x, y, x, by, SOLID, GREY_DEFAULT + FORCE)
           end

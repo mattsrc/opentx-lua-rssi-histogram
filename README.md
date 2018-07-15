@@ -445,6 +445,10 @@ Needs a pixel width of at least 100 as-coded or it wont draw anything.
 
 * `greyscale`: If true, then the RSSI critical level is drawn as a grey scale
 rectangle.  This won't work on the QX7, which has a monochrome display.
+* 'throttle_chan': Can get set to a channel such as *ch1*.  If set, then RSSI=0
+   valuess record whrn throttle is active.  The purpose of this is to try and
+   filter out stray RSSI=0 values (e.g. battery not plugged in yet) but get them
+   if they happen in flight.
 
 
 ### Switch Widget

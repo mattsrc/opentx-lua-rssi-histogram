@@ -261,7 +261,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    only_models = {'FM Edge', 'Skywing 50e'};
+    only_models = {'FM Edge', 'Stinger64s', 'Skywing 50e'};
     widget = ValueWidget('CelL', {label='CeL', decimals=2})
   },
   {
@@ -273,7 +273,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    not_models = {'Queen Bee', 'FM Edge', 'SU-29', 'Skywing 50e'};
+    not_models = {'Queen Bee', 'FM Edge', 'Stinger64s', 'Skywing 50e'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
@@ -284,7 +284,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    not_models = {'Skywing 50e', 'Queen Bee', 'FM Edge'};
+    not_models = {'Skywing 50e', 'Queen Bee', 'FM Edge', 'Stinger64s'};
     widget = ValueWidget('RxBt-', {label='RV-', decimals=1})
   },
   {
@@ -296,7 +296,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    only_models = {'Skywing 50e', 'FM Edge'};
+    only_models = {'Skywing 50e', 'FM Edge', 'Stinger64s'};
     widget = ValueWidget('Gyr', {
       func = function()
 		if getValue('ch10') > 750 then

@@ -248,12 +248,6 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    only_models = {'SU-29'};
-    widget = ValueWidget('A2', {decimals=1})
-  },
-  {
-    column = 1;
-    row = 3;
     not_models = {'FM Edge', 'Stinger64s', 'Skywing 50e'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },

@@ -232,31 +232,12 @@ local X9D_Layout = {
   {
     column = 1;
     row = 2;
-    only_models = {'Queen Bee'};
-    widget = SwitchWidget('sa', {
-    labels = {'NoFlp', 'Flap1', 'Flap2'},
-    flags = {0, INVERS, INVERS}
-    })
-  },
-  {
-    column = 1;
-    row = 2;
-    not_models = {'Queen Bee'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
   },
   {
     column = 0;
     row = 3;
     widget = TimerWidget(1, {})
-  },
-  {
-    column = 1;
-    row = 3;
-    only_models = {'Queen Bee'};
-    widget = SwitchWidget('sb', {
-    labels = {'Rud40', 'Rd100', 'NoRud'},
-    flags = {0, INVERS, INVERS}
-    })
   },
   {
     column = 1;
@@ -273,7 +254,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    not_models = {'Queen Bee', 'FM Edge', 'Stinger64s', 'Skywing 50e'};
+    not_models = {'FM Edge', 'Stinger64s', 'Skywing 50e'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
@@ -284,14 +265,8 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    not_models = {'Skywing 50e', 'Queen Bee', 'FM Edge', 'Stinger64s'};
+    not_models = {'Skywing 50e', 'FM Edge', 'Stinger64s'};
     widget = ValueWidget('RxBt-', {label='RV-', decimals=1})
-  },
-  {
-    column = 1;
-    row = 4;
-    only_models = {'Queen Bee'};
-    widget = ValueWidget('CelL', {label='CeL', decimals=2})
   },
   {
     column = 1;
@@ -336,18 +311,8 @@ local X9D_Layout = {
     column = 0;
     row = 2;
     height = 0;
-    width = 1;
-    pad = 0;
-    only_models = {'Queen Bee'};
-    widget = LineWidget({})
-  },
-  {
-    column = 0;
-    row = 2;
-    height = 0;
     width = 2;
     pad = 0;
-    not_models = {'Queen Bee'};
     widget = LineWidget({})
   },
   {
@@ -356,15 +321,6 @@ local X9D_Layout = {
     height = 3;
     width = 0;
     pad = 0;
-    widget = LineWidget({})
-  },
-  {
-    column = 1;
-    row = 4;
-    height = 0;
-    width = 1;
-    pad = 0;
-    only_models = {'Queen Bee'};
     widget = LineWidget({})
   },
   {

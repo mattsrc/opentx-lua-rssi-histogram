@@ -242,14 +242,27 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    only_models = {'FM Edge', 'Stinger64s', 'Skywing 50e'};
+    only_models = {'FM Edge', 'Skywing 50e'};
     widget = ValueWidget('CelL', {label='CeL', decimals=2})
   },
   {
     column = 1;
     row = 3;
-    not_models = {'FM Edge', 'Stinger64s', 'Skywing 50e'};
+    not_models = {'FM Edge', 'Skywing 50e', 'Stinger64s'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
+  },
+  {
+    column = 1;
+    row = 3;
+    only_models = {'Stinger64s'};
+    widget = ValueWidget('RAMx', {
+      func = function()
+		if getValue('sa') ~= 0 then
+		  return 'OFF'
+		end
+		return math.floor(getValue('input5') * 100 / 1024 + 0.5)
+	  end
+	})
   },
   {
     column = 0;
@@ -265,13 +278,26 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    only_models = {'Skywing 50e', 'FM Edge', 'Stinger64s'};
+    only_models = {'Skywing 50e', 'FM Edge'};
     widget = ValueWidget('Gyr', {
       func = function()
 		if getValue('ch10') > 750 then
 		  return 'OFF'
 		end
 		return math.floor(getValue('ch9') * 100 / 1024 + 0.5)
+	  end
+	})
+  },
+  {
+    column = 1;
+    row = 4;
+    only_models = {'Stinger64s'};
+    widget = ValueWidget('REMx', {
+      func = function()
+		if getValue('sa') ~= 0 then
+		  return 'OFF'
+		end
+		return math.floor(getValue('input6') * 100 / 1024 + 0.5)
 	  end
 	})
   },

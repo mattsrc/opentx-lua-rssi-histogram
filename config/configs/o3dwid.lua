@@ -95,7 +95,7 @@ local QX7_Layout = {
 }
 
 -- The XK K110 has no telemetry so lets make a custrom screen
-local K110_Layout = {
+local K1XX_Layout = {
   columns = {63, 127};
   rows = {22, 43, 53, 63};
   pad = 2;
@@ -248,7 +248,16 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    not_models = {'FM Edge', 'Skywing 50e'};
+    only_models = {'Stinger64s'};
+    widget = SwitchWidget('sb', {
+    labels = {'NoSp', 'SpUp', 'SpUp'},
+    flags = {0, INVERS, INVERS}
+    })
+  },
+  {
+    column = 1;
+    row = 3;
+    not_models = {'FM Edge', 'Skywing 50e', 'Stinger64s'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
@@ -346,7 +355,11 @@ local function chooseLayout()
 
 
   if model.getInfo().name == 'XK K110' then
-	return K110_Layout
+	return K1XX_Layout
+  end
+
+  if model.getInfo().name == 'XK K130' then
+	return K1XX_Layout
   end
 
   return QX7_Layout

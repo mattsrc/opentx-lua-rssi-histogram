@@ -21,17 +21,7 @@ local QX7_Layout = {
   {
     column = 1;
     row = 1;
-    not_models = {'UMX Timber'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
-  },
-  {
-    column = 1;
-    row = 1;
-    only_models = {'UMX Timber'};
-    widget = SwitchWidget('sb', {
-    labels = {'NoFlp', 'Flap1', 'Flap2'},
-    flags = {0, INVERS, INVERS}
-    })
   },
   {
     column = 2;
@@ -232,7 +222,17 @@ local X9D_Layout = {
   {
     column = 1;
     row = 2;
+    not_models = {'Tundra'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+  },
+  {
+    column = 1;
+    row = 2;
+    only_models = {'Tundra'};
+    widget = SwitchWidget('sb', {
+    labels = {'NoFlp', 'Flap1', 'Flap2'},
+    flags = {0, INVERS, INVERS}
+    })
   },
   {
     column = 0;
@@ -242,7 +242,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    only_models = {'FM Edge', 'Skywing 50e'};
+    only_models = {'FM Edge', 'Skywing 50e', 'Tundra'};
     widget = ValueWidget('CelL', {label='CeL', decimals=2})
   },
   {
@@ -257,7 +257,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    not_models = {'FM Edge', 'Skywing 50e', 'Stinger64s'};
+    not_models = {'FM Edge', 'Skywing 50e', 'Stinger64s', 'Tundra'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
@@ -268,7 +268,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 4;
-    not_models = {'Skywing 50e', 'FM Edge', 'Stinger64s'};
+    not_models = {'Skywing 50e', 'FM Edge', 'Stinger64s', 'Tundra'};
     widget = ValueWidget('RxBt-', {label='RV-', decimals=1})
   },
   {
@@ -291,6 +291,15 @@ local X9D_Layout = {
     widget = SwitchWidget('sa', {
     labels = {'NoMX', 'RMix', 'NoMx'},
     flags = {INVERS, 0, INVERS}
+    })
+  },
+  {
+    column = 1;
+    row = 4;
+    only_models = {'Tundra'};
+    widget = SwitchWidget('se', {
+    labels = {'Fwd', 'Rev', 'Rev'},
+    flags = {0, INVERS, INVERS}
     })
   },
   {

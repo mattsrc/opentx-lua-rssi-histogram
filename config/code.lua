@@ -213,6 +213,7 @@ local function SwitchWidget(switch, options)
   {'sb', 3},
   {'sc', 3},
   {'sd', 3},
+  {'se', 3},
   {'sf', 3},
   {'sg', 3},
   {'sh', 3},

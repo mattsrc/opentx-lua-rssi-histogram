@@ -209,6 +209,16 @@ local X9D_Layout = {
   {
     column = 1;
     row = 1;
+    only_models = {'Oxy 4'};
+    widget = SwitchWidget('sf', {
+    labels = {'Cut', 'Arm', 'Arm'},
+    flags = {0, BLINK + INVERS, BLINK + INVERS}
+    })
+  },
+  {
+    column = 1;
+    row = 1;
+    not_models = {'Oxy 4'};
     widget = SwitchWidget('sc', {
     labels = {'High', 'Low', 'Low'},
     flags = {0, INVERS, INVERS}
@@ -257,13 +267,26 @@ local X9D_Layout = {
   {
     column = 1;
     row = 3;
-    not_models = {'FM Edge', 'Skywing 50e', 'Stinger64s', 'Tundra'};
+    only_models = {'Oxy 4'};
+    widget = ValueWidget('RBV1', {label='BATT', decimals=1})
+  },
+  {
+    column = 1;
+    row = 3;
+    not_models = {'FM Edge', 'Skywing 50e', 'Stinger64s', 'Tundra', 'Oxy 4'};
     widget = ValueWidget('RxBt', {label='RV', decimals=1})
   },
   {
     column = 0;
     row = 4;
+    not_models = {'Oxy 4'};
     widget = TimerWidget(2, {})
+  },
+  {
+    column = 0;
+    row = 4;
+    only_models = {'Oxy 4'};
+    widget = ValueWidget('RPM', {label='RPM', decimals=0})
   },
   {
     column = 1;
@@ -361,7 +384,6 @@ local function chooseLayout()
   if string.find(radio, 'x9d') ~= nil then
     return X9D_Layout
   end
-
 
   if model.getInfo().name == 'XK K110' then
 	return K1XX_Layout

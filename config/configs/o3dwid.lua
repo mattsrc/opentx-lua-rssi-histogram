@@ -232,8 +232,18 @@ local X9D_Layout = {
   {
     column = 1;
     row = 2;
-    not_models = {'Tundra'};
+    not_models = {'Tundra', 'Oxy 4'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
+  },
+  {
+    column = 1;
+    row = 2;
+    only_models = {'Oxy 4'};
+    widget = ValueWidget('TGyr', {
+      func = function()
+		return math.floor(getValue('ch5') * 100 / 1024 + 0.5)
+	  end
+	})
   },
   {
     column = 1;
@@ -268,7 +278,7 @@ local X9D_Layout = {
     column = 1;
     row = 3;
     only_models = {'Oxy 4'};
-    widget = ValueWidget('RBV1', {label='BATT', decimals=1})
+    widget = ValueWidget('RB1V', {label='BATT', decimals=1})
   },
   {
     column = 1;

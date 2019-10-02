@@ -19,6 +19,34 @@
 -- Utility Functions
 --
 
+local function MapSwitches()
+  local _, radio = getVersion()
+  if string.find(radio, 'x7') ~= nil then
+	-- The QX7 has no SE switch.
+	return {
+	{'sa', 3},
+	{'sb', 3},
+	{'sc', 3},
+	{'sd', 3},
+	{'sf', 3},
+	{'sg', 3},
+	{'sh', 3},
+	}
+  end
+  return {
+  {'sa', 3},
+  {'sb', 3},
+  {'sc', 3},
+  {'sd', 3},
+  {'se', 3},
+  {'sf', 3},
+  {'sg', 3},
+  {'sh', 3},
+  }
+end
+
+local switch_pos_map = MapSwitches()
+
 local function TwoDigit(v)
   if v < 10 then
     return "0" .. tostring(v)
@@ -208,17 +236,6 @@ end
 -- SwitchWidget
 --
 local function SwitchWidget(switch, options)
-  local switch_pos_map = {
-  {'sa', 3},
-  {'sb', 3},
-  {'sc', 3},
-  {'sd', 3},
-  {'se', 3},
-  {'sf', 3},
-  {'sg', 3},
-  {'sh', 3},
-  }
-
   local switch_idx = 1
   local switch_positions = 0
   for _, keyval in ipairs(switch_pos_map) do

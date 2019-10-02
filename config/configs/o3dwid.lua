@@ -209,7 +209,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 1;
-    only_models = {'Oxy 4'};
+    only_models = {'Oxy 4', 'Fusion 270'};
     widget = SwitchWidget('sf', {
     labels = {'Cut', 'Arm', 'Arm'},
     flags = {0, BLINK + INVERS, BLINK + INVERS}
@@ -218,7 +218,7 @@ local X9D_Layout = {
   {
     column = 1;
     row = 1;
-    not_models = {'Oxy 4'};
+    not_models = {'Oxy 4', 'Fusion 270'};
     widget = SwitchWidget('sc', {
     labels = {'High', 'Low', 'Low'},
     flags = {0, INVERS, INVERS}
@@ -232,13 +232,13 @@ local X9D_Layout = {
   {
     column = 1;
     row = 2;
-    not_models = {'Tundra', 'Oxy 4'};
+    not_models = {'Tundra', 'Oxy 4', 'Fusion 270'};
     widget = ValueWidget('tx-voltage', {label='TxV', decimals=1})
   },
   {
     column = 1;
     row = 2;
-    only_models = {'Oxy 4'};
+    only_models = {'Oxy 4', 'Fusion 270'};
     widget = ValueWidget('TGyr', {
       func = function()
 		return math.floor(getValue('ch5') * 100 / 1024 + 0.5)

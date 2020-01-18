@@ -127,7 +127,7 @@ local K1XX_Layout = {
   {
     column = 0;
     row = 3;
-    widget = SwitchWidget('sc', {
+    widget = SwitchWidget('sb', {
     labels = {'Idle1', 'Idle2', 'Idle2'},
     flags = {0, BLINK + INVERS, 0}
     })
